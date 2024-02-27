@@ -81,16 +81,15 @@ function showClientsList(){
 
     const comebackButton =  document.createElement("button");
     comebackButton.textContent = "Comeback to the form";
-    comebackButton.addEventListener('click',comebackForm());
+    comebackButton.addEventListener('click',comebackForm);
     clientsList.append(comebackButton);
 }
 
-function comebackForm() { // fix the reason why it automatic do it when you click showClientList
+function comebackForm() { 
     const clientsForm = document.getElementById("clients-form");
     const clientsList = document.getElementById("clients-list");
-    console.log("hola")
-    // clientsList.style.display= "none";
-    // clientsForm.style.display= "block";
+    clientsList.style.display= "none";
+    clientsForm.style.display= "block";
 }
 
 
