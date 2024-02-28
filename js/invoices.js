@@ -75,14 +75,14 @@ function addInvoiceItem(){
     }
 
     const selectProduct = listProducts[selectProductIndex];
-    console.log(selectProduct);
+    // console.log(selectProduct);
     const subtotal = selectProduct.price*quantity;
 
     const li=document.createElement('li');
-    li.textContent = `${selectProduct.description} - Quantity: ${quantity} - Subtotal ${subtotal}`;
+    li.textContent = `${selectProduct.description} - Quantity: ${quantity} - Subtotal: ${subtotal}`;
     itemsList.append(li);
 
-    productSelect.selectIndex=-1;
+    productSelect.selectedIndex=-1;
     quantityInput.value = "";
 
 }
@@ -98,7 +98,44 @@ function createInvoice(){
     let invoiceTotal=0;
 
     for(const li of itemsList.getElementsByTagName("li")){
-
+        itemsInvoices.push(li.textContent);
+        const quantityMatch = li.textContent.match(/Quantity: (\d+)/);
+        const subtotalMatch = li.textContent.match(/Subtotal: (\d+)/);
+        // console.log("data: ",quantityMatch,subtotalMatch);
+        if(quantityMatch && subtotalMatch) {
+            const quantity = parseInt(quantityMatch[1]);
+            const subtotal = parseInt(subtotalMatch[1]);
+            invoiceTotal += subtotal;
+        }
     }
+
+    if(!date || !clientId ||  itemsInvoices.length==0){
+        alert("Please, complete all the inputs")
+        return;
+    }
+
+    const client = listClients.find(c=>c.id===parseInt(clientId));
+
+    const newInvoice = {
+        date: date,
+        client:client,
+        items: itemsInvoices,
+        total: invoiceTotal
+    };
+
+    invoiceList.push(newInvoice);
+
+    console.log("Invoice created",newInvoice);
+    console.log("Invoice list:",invoiceList);
+
+    dateInput.value = "";
+    clientSelect.selectedIndex=0;
+    itemsList.innerHTML="";
+
+    alert(`Invoice sucessfull created! Total: ${invoiceTotal}`);
 }
 
+
+function showInvoicesList(){
+    console.log("Do it!");
+}
