@@ -137,5 +137,42 @@ function createInvoice(){
 
 
 function showInvoicesList(){
-    console.log("Do it!");
+    const invoiceForm = document.getElementById("invoices-form");
+    const invoiceList = document.getElementById("invoices-list");
+
+    invoiceForm.style.display = "none";
+    invoiceList.style.display = "block";
+
+    const ul = document.createElement("ul");
+    ul.style.listStyleType = "none";//no dots
+    ul.style.padding = "0";
+
+    //go over the list and add every invoice as a li
+    for (const invoice of invoiceList){
+        const li = document.createAttribute("li")
+        li.style.marginBottom = '15px';
+        li.style.borderBottom = '1px solid #ccc';
+        li.style.paddingBottom = '10px';
+
+        //validate that the date is a valid
+        const date = invoice.date instanceof Date ? invoice.date.toLocalDateString() : "date not valid";
+
+        const clientDate = document.createElement("div");
+        clientDate.style.fontWeight ="bold";
+        clientDate.textContent =  `Date: ${date}, Client: ${invoice.client.name}, Total: ${invoice.total}`;
+        li.appendChild(clientDate);
+
+        const itemsUl = document.createElement("ul");
+        itemsUl.style.listStyleType = "none";
+        itemsUl.style.padding="0";
+
+        //go over the items in invoices and add the item as a li
+        for(const item of invoice.items){
+            const itemLi = document.createElement("li");
+            itemLi.textContent = `Product: ${item}`;
+            itemsUl.appendChild(itemLi)
+        }
+        
+        // end the below
+    }
 }
