@@ -1,0 +1,185 @@
+{
+  "clients": [
+    {
+      "id": "1",
+      "name": "Camilo Perez",
+      "age": 25,
+      "email": "cperez@gmail.com"
+    },
+    {
+      "id": "2",
+      "name": "Juan Gomez",
+      "age": 30,
+      "email": "jgomez@gmail.com"
+    },
+    {
+      "id": "3",
+      "name": "Daniel Ortiz",
+      "age": 26,
+      "email": "dortiz@gmail.com"
+    },
+    {
+      "id": "4",
+      "name": "Marcelo Holgin",
+      "age": 26,
+      "email": "mholgin@gmail.com"
+    },
+    {
+      "id": "5",
+      "name": "Sandra Moreno",
+      "age": "35",
+      "email": "smoreno@gmail.com"
+    },
+    {
+      "id": "6",
+      "name": "Celina Torres",
+      "age": "35",
+      "email": "ctorres@gmail.com"
+    },
+    {
+      "id": "7",
+      "name": "Diego Rangel",
+      "age": "45",
+      "email": "drangel@gmail.com"
+    },
+    {
+      "id": "8",
+      "name": "Pedro Gomez",
+      "age": "23",
+      "email": "pgoemz@gmail.com"
+    },
+    {
+      "id": "9",
+      "name": "Daniel Gomez",
+      "age": "34",
+      "email": "dgomez@gmail.com"
+    }
+  ],
+  "products": [
+    {
+      "id": "1",
+      "code": "P001",
+      "description": "Camisa Casual",
+      "price": 20
+    },
+    {
+      "id": "2",
+      "code": "P002",
+      "description": "Zapatillas Deportivas",
+      "price": 15.5
+    },
+    {
+      "id": "3",
+      "code": "P003",
+      "description": "Portafolio Ejecutivo",
+      "price": 35.75
+    },
+    {
+      "id": "4",
+      "code": "P004",
+      "description": "Reloj de Pulsera Elegante",
+      "price": 42.2
+    },
+    {
+      "id": "5",
+      "code": "P005",
+      "description": "Gafas de Sol Retro",
+      "price": 18.9
+    },
+    {
+      "id": "6",
+      "code": "P006",
+      "description": "Cámara Fotográfica Compacta",
+      "price": 28.4
+    },
+    {
+      "id": "7",
+      "code": "P007",
+      "description": "Auriculares Inalámbricos",
+      "price": 13.75
+    },
+    {
+      "id": "8",
+      "code": "P008",
+      "description": "Mochila Resistente al Agua",
+      "price": 49.99
+    },
+    {
+      "id": "9",
+      "code": "P009",
+      "description": "Teclado Mecánico para Gaming",
+      "price": 22.3
+    },
+    {
+      "id": "10",
+      "code": "P010",
+      "description": "Tableta Gráfica Profesional",
+      "price": 31
+    },
+    {
+      "id": "11",
+      "code": "P011",
+      "description": "TV lg 64",
+      "price": "1000"
+    }
+  ],
+  "invoices": [
+    {
+      "id": "1",
+      "date": "2024-02-27",
+      "client": {
+        "id": "1",
+        "name": "Camilo Perez",
+        "age": 25,
+        "email": "cperez@gmail.com"
+      },
+      "items": [
+        "Camisa Casual - Cantidad: 1 - Subtotal: 20 "
+      ],
+      "total": 20
+    },
+    {
+      "id": "2",
+      "date": "2024-02-26",
+      "client": {
+        "id": "3",
+        "name": "Daniel Ortiz",
+        "age": 26,
+        "email": "dortiz@gmail.com"
+      },
+      "items": [
+        "Camisa Casual - Cantidad: 1 - Subtotal: 20 ",
+        "Zapatillas Deportivas - Cantidad: 2 - Subtotal: 31 "
+      ],
+      "total": 51
+    },
+    {
+      "id": "3",
+      "date": "2024-02-26",
+      "client": {
+        "id": "4",
+        "name": "Marcelo Holgin",
+        "age": 26,
+        "email": "mholgin@gmail.com"
+      },
+      "items": [
+        "Camisa Casual - Cantidad: 10 - Subtotal: 200 "
+      ],
+      "total": 200
+    },
+    {
+      "id": "4",
+      "date": "2024-02-26",
+      "client": {
+        "id": "4",
+        "name": "Marcelo Holgin",
+        "age": 26,
+        "email": "mholgin@gmail.com"
+      },
+      "items": [
+        "Portafolio Ejecutivo - Cantidad: 11 - Subtotal: 393.25 "
+      ],
+      "total": 393
+    }
+  ]
+}

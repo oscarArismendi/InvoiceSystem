@@ -48,7 +48,7 @@ function loadInvoicesForm(){
 function generateOptionsClients(){
     let options = "";
     for(const client of listClients){
-        options += `<option value="${client._id}">${client.name}</option>`;
+        options += `<option value="${client.id}">${client.name}</option>`;
     }
     return options;
 }
@@ -92,11 +92,10 @@ function createInvoice(){
     const clientSelect =  document.getElementById("clientInvoice");
     const itemsList = document.getElementById("items-list");
 
-    const date = dateInput.value;
+    const date = new Date(dateInput.value);
     const clientId = clientSelect.value;
     const itemsInvoices=[];
     let invoiceTotal=0;
-
     for(const li of itemsList.getElementsByTagName("li")){
         itemsInvoices.push(li.textContent);
         const quantityMatch = li.textContent.match(/Quantity: (\d+)/);
@@ -109,7 +108,7 @@ function createInvoice(){
         }
     }
 
-    if(!date || !clientId ||  itemsInvoices.length==0){
+    if(!date || !clientId ||  itemsInvoices.length===0){
         alert("Please, complete all the inputs")
         return;
     }
@@ -138,10 +137,10 @@ function createInvoice(){
 
 function showInvoicesList(){
     const invoiceForm = document.getElementById("invoices-form");
-    const invoiceList = document.getElementById("invoices-list");
+    const invoiceListHTML = document.getElementById("invoices-list");
 
     invoiceForm.style.display = "none";
-    invoiceList.style.display = "block";
+    invoiceListHTML.style.display = "block";
 
     const ul = document.createElement("ul");
     ul.style.listStyleType = "none";//no dots
@@ -149,13 +148,15 @@ function showInvoicesList(){
 
     //go over the list and add every invoice as a li
     for (const invoice of invoiceList){
-        const li = document.createAttribute("li")
+        const li = document.createElement("li");
+        // console.log(li);
         li.style.marginBottom = '15px';
         li.style.borderBottom = '1px solid #ccc';
         li.style.paddingBottom = '10px';
 
         //validate that the date is a valid
-        const date = invoice.date instanceof Date ? invoice.date.toLocalDateString() : "date not valid";
+        console.log("invoice date",invoice.date);
+        const date = invoice.date instanceof Date ? invoice.date.toLocaleDateString() : "date not valid";
 
         const clientDate = document.createElement("div");
         clientDate.style.fontWeight ="bold";
@@ -173,6 +174,24 @@ function showInvoicesList(){
             itemsUl.appendChild(itemLi)
         }
         
-        // end the below
+        li.appendChild(itemsUl);
+        ul.appendChild(li);
     }
+    
+    invoiceListHTML.innerHTML = ""; 
+    invoiceListHTML.appendChild(ul);
+
+    const comebackButton =  document.createElement("button");
+    comebackButton.textContent = "Comeback to the form";
+    comebackButton.addEventListener('click',comebackInvoiceForm);
+    invoiceListHTML.append(comebackButton);
+
+}
+
+function comebackInvoiceForm(){
+    const invoiceForm = document.getElementById("invoices-form");
+    const invoiceListHTML = document.getElementById("invoices-list");
+
+    invoiceListHTML.style.display = "none";
+    invoiceForm.style.display = "block";
 }

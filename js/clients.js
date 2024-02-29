@@ -1,14 +1,33 @@
 const listClients=[];
 
-function loadClients(){
-    for(let i = 0; i <= 10; i++){
-        const newClient={
-            id:i+1,
-            name:faker.name.findName(),
-            age:Math.floor(Math.random()*30) + 18,
-            email:faker.internet.email()
-        };
-        listClients.push(newClient);
+async function loadClients(){
+    try{
+        listClients.length=0;
+        const response = await fetch("http://localhost:3000/clients");
+        if(!response.ok){
+            throw new Error("Error to load clientes. state:",response.status);
+        }
+        const clients = await response.json();
+        listClients.push(...clients);
+    }catch(error){
+        console.error("error to load the clients",error.message);
+    }
+}
+
+async function saveClient(newClient){
+    try{
+        const response = await fetch("http://localhost:3000/clients",{
+            method:"POST",
+            headers:{"Content-type":"application/json"},
+            body: JSON.stringify(newClient)
+        });
+        if(!response.ok){
+            throw new Error("Error to load clientes. state:",response.status);
+        }
+        const createdClient = await response.json();
+        console.log("created Client:",createdClient);
+    }catch(error){
+        console.error("error to load the clients",error.message);
     }
 }
 
@@ -32,7 +51,7 @@ function loadClientsForm(){
     clientsList.style.display= "none";
 }
 
-function createClient(){
+async function createClient(){
     const nameInput = document.getElementById("clientName");
     const ageInput = document.getElementById("clientAge");
     const emailInput = document.getElementById("clientEmail");
@@ -41,6 +60,11 @@ function createClient(){
     const age = ageInput.value;
     const email = emailInput.value;
 
+    if (!/^.+@.+\..+[a-zA-Z]+$/.test(email) || !name || !age) {
+        alert("Please, fill the fields correctly");
+        return;
+    }
+
     const newClient = {
         id:listClients.length+1,
         name:name,
@@ -48,7 +72,8 @@ function createClient(){
         email:email
     }
 
-    listClients.push(newClient);
+    await saveClient(newClient);
+    await loadClients();
 
     nameInput.value="";
     ageInput.value="";
@@ -61,7 +86,8 @@ function createClient(){
     return newClient;
 }
 
-function showClientsList(){
+async function showClientsList(){
+    await loadClients();
     const clientsForm = document.getElementById("clients-form");
     const clientsList = document.getElementById("clients-list");
 
