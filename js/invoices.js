@@ -1,5 +1,41 @@
 const invoiceList = [];
 
+async function loadInvoice(){
+    try{
+        invoiceList.length = 0;
+        const response = await fetch("http://localhost:3000/invoices");
+
+        if(!response.ok){
+            throw new Error("Error to load clients. State:",response.status);
+        }
+        const invoices = await response.json();
+        invoiceList.push(...invoices);
+    }catch(error){
+        console.error("Error to load clients",error.message);
+    }
+}
+
+async function saveInvoice(newInvoice){
+    try{
+        const response = await fetch("http://localhost:3000/invoices",{
+            method:"POST",
+            headers:{
+                "Content-Type":"Application/json"
+            },
+            body:JSON.stringify(newInvoice)
+        });
+        if(!response.ok){
+            throw new Error("Error to load invoice. State:",response.status);
+        }
+        const createdInvoice = await response.json();
+        console.log("Invoice created:",createdInvoice);
+        
+    }catch(error){
+        console.log("Error to load invoices",error.message);
+    }
+}
+
+
 function updateClientsInInvoices(){
     const  clientSelect = document.getElementById("clientInvoice");
     clientSelect.innerHTML="";
@@ -43,6 +79,8 @@ function loadInvoicesForm(){
         <button type="button" onclick="showInvoicesList()">Show all invoices</button>
     </form>
     `;
+    const invoiceListHTML = document.getElementById("invoices-list");
+    invoiceListHTML.style.display="none";
 }
 
 function generateOptionsClients(){
@@ -56,7 +94,7 @@ function generateOptionsClients(){
 function generateOptionsProducts(){
     let options = "";
     for(const product of listProducts){
-        options += `<option value="${product._id}">${product.description}`;
+        options += `<option value="${product.code}">${product.description}</option>`;
     }
     return options;
 }
@@ -65,7 +103,7 @@ function addInvoiceItem(){
     const productSelect = document.getElementById("invoiceProducts");
     const quantityInput = document.getElementById("productQuantity");
     const itemsList = document.getElementById("items-list");
-    console.log(productSelect.selectedIndex);
+
     const selectProductIndex = productSelect.selectedIndex;
     const quantity=quantityInput.value;
 
@@ -75,7 +113,6 @@ function addInvoiceItem(){
     }
 
     const selectProduct = listProducts[selectProductIndex];
-    // console.log(selectProduct);
     const subtotal = selectProduct.price*quantity;
 
     const li=document.createElement('li');
