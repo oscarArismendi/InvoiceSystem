@@ -5,7 +5,7 @@ async function loadClients(){
         listClients.length=0;
         const response = await fetch("http://localhost:3000/clients");
         if(!response.ok){
-            throw new Error("Error to load clientes. state:",response.status);
+            throw new Error("Error to load client. state:",response.status);
         }
         const clients = await response.json();
         listClients.push(...clients);
@@ -22,7 +22,7 @@ async function saveClient(newClient){
             body: JSON.stringify(newClient)
         });
         if(!response.ok){
-            throw new Error("Error to load clientes. state:",response.status);
+            throw new Error("Error to load client. state:",response.status);
         }
         const createdClient = await response.json();
         console.log("created Client:",createdClient);
